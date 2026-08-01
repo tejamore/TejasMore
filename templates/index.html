@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{ cv.name }} — {{ cv.title }}</title>
+<meta name="description" content="{{ cv.summary[:150] }}">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+<!-- ===================== SVG ICON SPRITE ===================== -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="icon-input" viewBox="0 0 24 24"><path d="M4 12h11M11 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M20 5v14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+    <symbol id="icon-bot" viewBox="0 0 24 24"><rect x="5" y="9" width="14" height="10" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="9.5" cy="14" r="1.2" fill="currentColor"/><circle cx="14.5" cy="14" r="1.2" fill="currentColor"/><path d="M12 9V5.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="4" r="1.3" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M2.5 14h2.5M19 14h2.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+    <symbol id="icon-gear" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3.2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 2.5v3M12 18.5v3M21.5 12h-3M5.5 12h-3M18.6 5.4l-2.1 2.1M7.5 16.5l-2.1 2.1M18.6 18.6l-2.1-2.1M7.5 7.5 5.4 5.4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+    <symbol id="icon-chart" viewBox="0 0 24 24"><path d="M4 20V10M11 20V4M18 20v-7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M2.5 20.5h19" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
+    <symbol id="icon-check" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M8 12.5l2.5 2.5L16.5 9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="icon-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12" r="4.8" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12" r="1.3" fill="currentColor"/></symbol>
+    <symbol id="icon-layers" viewBox="0 0 24 24"><path d="M12 3l9 4.7-9 4.7-9-4.7L12 3z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M3 12.3L12 17l9-4.7M3 16.7L12 21.4l9-4.7" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></symbol>
+    <symbol id="icon-grid" viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="7" height="7" rx="1.2" fill="none" stroke="currentColor" stroke-width="1.6"/><rect x="13.5" y="3.5" width="7" height="7" rx="1.2" fill="none" stroke="currentColor" stroke-width="1.6"/><rect x="3.5" y="13.5" width="7" height="7" rx="1.2" fill="none" stroke="currentColor" stroke-width="1.6"/><rect x="13.5" y="13.5" width="7" height="7" rx="1.2" fill="none" stroke="currentColor" stroke-width="1.6"/></symbol>
+    <symbol id="icon-database" viewBox="0 0 24 24"><ellipse cx="12" cy="5.5" rx="7.5" ry="2.6" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M4.5 5.5V18c0 1.4 3.4 2.6 7.5 2.6s7.5-1.2 7.5-2.6V5.5" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M4.5 11.8c0 1.4 3.4 2.6 7.5 2.6s7.5-1.2 7.5-2.6" fill="none" stroke="currentColor" stroke-width="1.6"/></symbol>
+    <symbol id="icon-doc" viewBox="0 0 24 24"><path d="M6.5 3h8l4 4v14h-12z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M14 3v4.5h4.3" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M9 12h6M9 15.5h6M9 8.6h2.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></symbol>
+    <symbol id="icon-mail" viewBox="0 0 24 24"><rect x="3" y="5.5" width="18" height="13" rx="2" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M4 7l8 6 8-6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="icon-phone" viewBox="0 0 24 24"><path d="M6 3.5h3l1.5 4-2 1.7a13 13 0 0 0 6.3 6.3l1.7-2 4 1.5v3a2 2 0 0 1-2.2 2C11.3 19.5 4.5 12.7 4 5.7A2 2 0 0 1 6 3.5z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></symbol>
+    <symbol id="icon-pin" viewBox="0 0 24 24"><path d="M12 21s7-6.6 7-11.5A7 7 0 0 0 5 9.5C5 14.4 12 21 12 21z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><circle cx="12" cy="9.5" r="2.3" fill="none" stroke="currentColor" stroke-width="1.6"/></symbol>
+    <symbol id="icon-download" viewBox="0 0 24 24"><path d="M12 3v12M7.5 11l4.5 4.5L16.5 11" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M4.5 18v1.5A1.5 1.5 0 0 0 6 21h12a1.5 1.5 0 0 0 1.5-1.5V18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+    <symbol id="icon-arrow" viewBox="0 0 24 24"><path d="M5 12h13M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  </defs>
+</svg>
+
+<!-- ===================== NAV ===================== -->
+<header class="nav">
+  <div class="nav__inner">
+    <a href="#top" class="nav__brand">TM<span class="nav__dot">.</span></a>
+    <nav class="nav__links">
+      <a href="#work">Experience</a>
+      <a href="#skills">Skills</a>
+      <a href="#education">Education</a>
+    </nav>
+    <a class="nav__cta" href="{{ cv.contact_form_url }}" target="_blank" rel="noopener">
+      Get in touch
+    </a>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- ===================== HERO ===================== -->
+  <section class="hero">
+    <div class="hero__grid">
+      <div class="hero__copy reveal">
+        <p class="eyebrow"><span class="status-dot"></span>Available for Project Manager / Project Coordinator roles</p>
+        <h1 class="hero__name">{{ cv.name }}</h1>
+        <p class="hero__title">{{ cv.title }}</p>
+        <p class="hero__summary">{{ cv.summary }}</p>
+
+        <div class="hero__actions">
+          <a class="btn btn--primary" href="{{ cv.contact_form_url }}" target="_blank" rel="noopener">
+            Start a conversation <svg class="icn" width="16" height="16"><use href="#icon-arrow"/></svg>
+          </a>
+          <a class="btn btn--ghost" href="{{ url_for('static', filename=cv.resume_file) }}" download>
+            <svg class="icn" width="16" height="16"><use href="#icon-download"/></svg> Download résumé
+          </a>
+        </div>
+
+        <div class="hero__meta">
+          <span><svg class="icn" width="15" height="15"><use href="#icon-pin"/></svg>{{ cv.location }}</span>
+          <a href="mailto:{{ cv.email }}"><svg class="icn" width="15" height="15"><use href="#icon-mail"/></svg>{{ cv.email }}</a>
+          <span><svg class="icn" width="15" height="15"><use href="#icon-phone"/></svg>{{ cv.phone }}</span>
+        </div>
+      </div>
+
+      <div class="hero__portrait reveal reveal--delay">
+        <div class="portrait-frame">
+          <div class="portrait-ring"></div>
+          <img src="{{ url_for('static', filename=cv.profile_image) }}" alt="Portrait of {{ cv.name }}" class="portrait-img">
+          <div class="portrait-badge">
+            <span class="status-dot status-dot--sm"></span> Actively automating
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===================== SIGNATURE: LIVE AUTOMATION PIPELINE ===================== -->
+    <div class="pipeline reveal reveal--delay2" aria-hidden="true">
+      <p class="pipeline__label">How the work moves — from raw ops to delivered outcome</p>
+      <svg class="pipeline__svg" viewBox="0 0 1200 180" preserveAspectRatio="xMidYMid meet">
+        <path id="pipe-path" class="pipeline__path" d="M60,90 C 250,20 350,160 480,90 S 710,20 840,90 970,160 1140,90" />
+        {% for i in range(4) %}
+        <circle r="4.5" class="pipeline__dot pipeline__dot--{{ i }}">
+          <animateMotion dur="7s" repeatCount="indefinite" begin="{{ i * 1.75 }}s" rotate="auto">
+            <mpath href="#pipe-path"/>
+          </animateMotion>
+        </circle>
+        {% endfor %}
+
+        {% set positions = [60, 300, 600, 900, 1140] %}
+        {% for node in cv.pipeline %}
+        <g class="pipeline__node" transform="translate({{ positions[loop.index0] }}, 90)">
+          <circle r="30" class="pipeline__node-bg"/>
+          <circle r="30" class="pipeline__node-ring"/>
+          <use href="#icon-{{ node.icon }}" x="-11" y="-11" width="22" height="22" class="pipeline__node-icon"/>
+        </g>
+        {% endfor %}
+      </svg>
+      <div class="pipeline__labels">
+        {% for node in cv.pipeline %}
+        <span>{{ node.label }}</span>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== SKILLS ===================== -->
+  <section class="section" id="skills">
+    <div class="section__head reveal">
+      <p class="eyebrow">Toolkit</p>
+      <h2>Core technical skills</h2>
+    </div>
+    <div class="skills-grid">
+      {% for group in cv.skill_groups %}
+      <div class="skill-card reveal">
+        <div class="skill-card__icon"><svg width="20" height="20"><use href="#icon-{{ group.icon }}"/></svg></div>
+        <h3>{{ group.title }}</h3>
+        <ul>
+          {% for item in group.skills %}
+          <li>{{ item }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+      {% endfor %}
+    </div>
+  </section>
+
+  <!-- ===================== PM SKILLSET ===================== -->
+  <section class="section section--alt">
+    <div class="section__head reveal">
+      <p class="eyebrow">Delivery discipline</p>
+      <h2>Project management skill set</h2>
+    </div>
+    <div class="pm-grid">
+      {% for skill in cv.pm_skillset %}
+      <div class="pm-card reveal">
+        <span class="pm-card__index">{{ '%02d'|format(loop.index) }}</span>
+        <h3>{{ skill.title }}</h3>
+        <p>{{ skill.desc }}</p>
+      </div>
+      {% endfor %}
+    </div>
+  </section>
+
+  <!-- ===================== EXPERIENCE ===================== -->
+  <section class="section" id="work">
+    <div class="section__head reveal">
+      <p class="eyebrow">Track record</p>
+      <h2>Professional experience</h2>
+    </div>
+
+    {% for job in cv.experience %}
+    <div class="timeline">
+      <div class="timeline__side reveal">
+        <div class="timeline__company">
+          <h3>{{ job.company }}</h3>
+          <p class="timeline__location"><svg class="icn" width="14" height="14"><use href="#icon-pin"/></svg>{{ job.location }}</p>
+        </div>
+        {% for role in job.roles %}
+        <div class="timeline__role">
+          <span class="timeline__dot"></span>
+          <div>
+            <p class="timeline__role-title">{{ role.title }}</p>
+            <p class="timeline__role-period">{{ role.period }}</p>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      <div class="timeline__content reveal reveal--delay">
+        <ul class="timeline__list">
+          {% for point in job.highlights %}
+          <li>{{ point }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+    {% endfor %}
+  </section>
+
+  <!-- ===================== EDUCATION ===================== -->
+  <section class="section section--alt" id="education">
+    <div class="section__head reveal">
+      <p class="eyebrow">Foundation</p>
+      <h2>Education</h2>
+    </div>
+    <div class="edu-grid">
+      {% for edu in cv.education %}
+      <div class="edu-card reveal">
+        <div class="edu-card__icon"><svg width="20" height="20"><use href="#icon-doc"/></svg></div>
+        <h3>{{ edu.degree }}</h3>
+        <p>{{ edu.detail }}</p>
+      </div>
+      {% endfor %}
+    </div>
+  </section>
+
+  <!-- ===================== CONTACT CTA ===================== -->
+  <section class="cta reveal">
+    <div class="cta__inner">
+      <p class="eyebrow">Next step</p>
+      <h2>Have a role that needs both automation and delivery discipline?</h2>
+      <p class="cta__sub">Send over the brief — role, team, and timeline — and I'll get back to you.</p>
+      <div class="hero__actions hero__actions--center">
+        <a class="btn btn--primary" href="{{ cv.contact_form_url }}" target="_blank" rel="noopener">
+          Fill the contact form <svg class="icn" width="16" height="16"><use href="#icon-arrow"/></svg>
+        </a>
+        <a class="btn btn--ghost" href="mailto:{{ cv.email }}">
+          <svg class="icn" width="16" height="16"><use href="#icon-mail"/></svg> {{ cv.email }}
+        </a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <p>&copy; <span id="year"></span> {{ cv.name }}. Built with Flask.</p>
+</footer>
+
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
